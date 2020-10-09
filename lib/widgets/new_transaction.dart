@@ -4,6 +4,18 @@ class NewTransaction extends StatelessWidget {
   final Function addNTx;
   final titleControler=TextEditingController();
   final priceControler=TextEditingController();
+
+
+  void onSubmit(){
+   final enteredTitle = titleControler.text;
+   final enteredPrice =double.parse(priceControler.text);
+
+  if(enteredTitle.isEmpty || enteredPrice <= 0){
+    return;
+  }
+   addNTx(enteredTitle,
+   enteredPrice);
+  }
   NewTransaction(this.addNTx);
   @override
   Widget build(BuildContext context) {
@@ -13,10 +25,13 @@ class NewTransaction extends StatelessWidget {
                 children: [
                   TextField(
                     controller: titleControler,
+                    onSubmitted:(_)=> onSubmit,
                     decoration: InputDecoration(labelText: 'title'),
+                    
                   ),
                   TextField(
                     controller: priceControler,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(labelText: 'price'),
                   ),
                   FlatButton(
@@ -24,9 +39,7 @@ class NewTransaction extends StatelessWidget {
                       'Add transaction',
                       style: TextStyle(color: Colors.purpleAccent),
                     ),
-                    onPressed: () {
-                     addNTx(titleControler.text,double.parse(priceControler.text));
-                    },
+                    onPressed: onSubmit
                   ),
                 ],
               )
