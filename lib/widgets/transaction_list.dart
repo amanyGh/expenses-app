@@ -10,7 +10,11 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
    return Container(
      height: 300,
-     child: ListView.builder(
+     child:transactions.isEmpty? Column(children: [
+       Text('no transactions yet'),
+       SizedBox(height: 10,),
+       Image.asset('assets/images/waiting.png',width: 100,),
+     ],): ListView.builder(
        itemBuilder: (ctx,index){
          return Card(
                     child: Row(
