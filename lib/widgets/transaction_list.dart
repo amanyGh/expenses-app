@@ -21,13 +21,13 @@ class TransactionList extends StatelessWidget {
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               border: Border.all(
-                            color: Colors.purpleAccent,
+                            color: Theme.of(context).primaryColor,
                             width: 1,
                           )),
                           child: Text(
                             '\$ ${transactions[index].price.toStringAsFixed(2)}',
                             style: TextStyle(
-                                color: Colors.purpleAccent,
+                                color: Theme.of(context).primaryColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           ),

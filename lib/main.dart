@@ -1,6 +1,5 @@
 import 'package:expenses_app/widgets/new_transaction.dart';
 import 'package:expenses_app/widgets/transaction_list.dart';
-import 'package:expenses_app/widgets/user_transactions.dart';
 import 'package:flutter/material.dart';
 import 'models/transaction.dart';
 
@@ -12,6 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        accentColor: Colors.teal
+      ),
       home: MyHomePage(),
     );
   }
@@ -59,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('expenses app'),
-        actions: [IconButton(icon: Icon(Icons.add), onPressed:()=> startAddNewTx(context))],
+        actions: [
+          IconButton(icon: Icon(Icons.add),
+          onPressed:()=> startAddNewTx(context))],
       ),
       body: SingleChildScrollView(
         child: Column(
