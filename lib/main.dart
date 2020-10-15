@@ -2,9 +2,14 @@ import 'package:expenses_app/chart.dart';
 import 'package:expenses_app/widgets/new_transaction.dart';
 import 'package:expenses_app/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'models/transaction.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitUp
+  ]);
   runApp(MyApp());
 }
 
@@ -62,28 +67,40 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  void removeTx(String id){
-   setState(() {
-     _userTransactions.removeWhere((tx) => tx.id == id);
-   });
+  void removeTx(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
+    });
   }
+
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('expenses app'),
+      actions: [
+        IconButton(
+            icon: Icon(Icons.add), onPressed: () => startAddNewTx(context))
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('expenses app'),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.add), onPressed: () => startAddNewTx(context))
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions,removeTx)
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(_recentTransactions)),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.7,
+                child: TransactionList(_userTransactions, removeTx))
           ],
         ),
       ),
